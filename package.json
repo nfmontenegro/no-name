@@ -4,8 +4,8 @@
   "description": "deploy prisma-now",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js --exec ./node_modules/.bin/babel-node",
-    "develop": "nodemon --inspect src/index.js --exec ./node_modules/.bin/babel-node",
+    "start": "node src/index.js --exec babel-node",
+    "develop": "nodemon --inspect src/index.js --exec babel-node",
     "deploy": "prisma deploy --env-file .env"
   },
   "keywords": [

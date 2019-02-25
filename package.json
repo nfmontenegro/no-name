@@ -1,0 +1,41 @@
+{
+  "name": "prisma-now",
+  "version": "1.0.0",
+  "description": "deploy prisma-now",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js --exec ./node_modules/.bin/babel-node",
+    "develop": "nodemon --inspect src/index.js --exec ./node_modules/.bin/babel-node",
+    "deploy": "prisma deploy --env-file .env"
+  },
+  "keywords": [
+    "express",
+    "nodejs",
+    "prisma",
+    "graphql"
+  ],
+  "author": "Nicolás Flores  Montenegro",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "dotenv": "^6.2.0",
+    "graphql": "^14.1.1",
+    "graphql-yoga": "^1.17.4",
+    "prisma-binding": "^2.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  }
+}

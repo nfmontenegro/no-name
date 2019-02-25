@@ -2,12 +2,14 @@ import {GraphQLServer} from 'graphql-yoga'
 import {Prisma} from 'prisma-binding'
 
 import Query from './resolvers/Query'
+import Mutation from './resolvers/Mutation'
 
 require('dotenv').config()
 const server = new GraphQLServer({
   typeDefs: __dirname + '/prisma.graphql',
   resolvers: {
-    Query
+    Query,
+    Mutation
   },
   resolverValidationOptions: {
     requireResolversForResolveType: false

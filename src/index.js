@@ -1,5 +1,6 @@
 import {GraphQLServer} from 'graphql-yoga'
 import {Prisma} from 'prisma-binding'
+import jwt from 'jsonwebtoken'
 
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
@@ -25,6 +26,24 @@ const server = new GraphQLServer({
   })
 })
 
-server.start(() =>
+server.express.use((req, res, next) => {
+  const token = req.headers.authorization
+  if (token) {
+    const bearer = token.split(' ')
+    const bearerToken = bearer[1]
+    const {userId} = jwt.verify(bearerToken, process.env.SECRET_PASSWORD)
+    req.userId = userId
+  }
+  next()
+})
+
+const options = {
+  port: process.env.PORT,
+  formatError(err) {
+    return err.message
+  }
+}
+
+server.start(options =>
   console.log('Server is now running on port: http://localhost:4000')
 )

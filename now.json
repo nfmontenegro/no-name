@@ -14,7 +14,7 @@
     }
   ],
   "env": {
-    "PRISMA_ENDPOINT": "@prisma-endpoint",
-    "PRISMA_PASSWORD": "@prisma-password"
+    "PRISMA_ENDPOINT": "@prismaendpoint",
+    "PRISMA_PASSWORD": "@prismapassword"
   }
 }

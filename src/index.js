@@ -4,7 +4,7 @@ import {Prisma} from 'prisma-binding'
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
 
-import {checkToken} from './middlewares'
+import {permissions} from './middlewares/permissions'
 
 require('dotenv').config()
 
@@ -26,7 +26,7 @@ const server = new GraphQLServer({
       debug: false
     })
   }),
-  middlewares: [checkToken]
+  middlewares: [permissions]
 })
 
 const options = {

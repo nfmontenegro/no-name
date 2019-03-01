@@ -1,11 +1,13 @@
 import {GraphQLServer} from 'graphql-yoga'
 import {Prisma} from 'prisma-binding'
-import jwt from 'jsonwebtoken'
 
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
 
+import {checkToken} from './middlewares'
+
 require('dotenv').config()
+
 const server = new GraphQLServer({
   typeDefs: __dirname + '/prisma.graphql',
   resolvers: {
@@ -23,18 +25,8 @@ const server = new GraphQLServer({
       secret: process.env.PRISMA_PASSWORD,
       debug: false
     })
-  })
-})
-
-server.express.use((req, res, next) => {
-  const token = req.headers.authorization
-  if (token) {
-    const bearer = token.split(' ')
-    const bearerToken = bearer[1]
-    const {userId} = jwt.verify(bearerToken, process.env.SECRET_PASSWORD)
-    req.userId = userId
-  }
-  next()
+  }),
+  middlewares: [checkToken]
 })
 
 const options = {

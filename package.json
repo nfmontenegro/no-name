@@ -4,7 +4,7 @@
   "description": "deploy prisma-now",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js --exec babel-node",
+    "start": "nodemon --inspect src/index.js --exec babel-node",
     "develop": "nodemon --inspect src/index.js --exec babel-node",
     "deploy": "prisma deploy --env-file .env"
   },
@@ -20,6 +20,7 @@
     "babel-preset-env": "^1.7.0",
     "dotenv": "^6.2.0",
     "graphql": "^14.1.1",
+    "graphql-shield": "^5.3.0",
     "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.0",
     "prisma-binding": "^2.3.3"

@@ -1,15 +1,19 @@
 import jwt from 'jsonwebtoken'
 
-function checkToken(resolve, parent, args, ctx, info) {
-  const {request} = ctx
-  const token = request.headers.authorization
-  if (token) {
-    const bearer = token.split(' ')
-    const bearerToken = bearer[1]
-    const {userId} = jwt.verify(bearerToken, process.env.SECRET_PASSWORD)
-    request.userId = userId
+class AuthError extends Error {
+  constructor() {
+    super('Not authorized')
   }
-  return resolve(parent, args, ctx, info)
 }
 
-export default checkToken
+function getUserId(context) {
+  const {request} = context
+  const Authorization = request.get('Authorization')
+  if (Authorization) {
+    const token = Authorization.replace('Bearer ', '')
+    const verifiedToken = jwt.verify(token, process.env.SECRET_PASSWORD)
+    return verifiedToken && verifiedToken.userId
+  }
+}
+
+export {getUserId, AuthError}

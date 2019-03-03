@@ -15,6 +15,7 @@ const rules = {
 
 const permissions = shield({
   Query: {
+    user: rules.isAuthenticatedUser,
     users: rules.isAuthenticatedUser
   },
   Mutation: {}

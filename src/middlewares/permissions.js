@@ -6,7 +6,7 @@ const rules = {
     const userId = getUserId(context)
     return Boolean(userId)
   }),
-  isPostOwner: rule()(async (parent, {id}, context) => {
+  isOwner: rule()(async (parent, {id}, context) => {
     const userId = getUserId(context)
     const user = await context.db.query.user({where: {id}})
     return userId === user._id

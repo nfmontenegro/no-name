@@ -4,7 +4,7 @@ secret: ${env:PRISMA_PASSWORD}
 
 generate:
     - generator: graphql-schema
-      output: ./src/
+      output: ./src/generated
 
 hooks:
   post-deploy:

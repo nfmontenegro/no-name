@@ -2,7 +2,8 @@
 
 type Mutation {
   deleteUser(id: ID): String!
-  createUser(data: UserInput): User
+  updateUser(data: UserInput): User!
+  createUser(data: UserInput): User!
   login(data: LoginUserInput): AuthPayload
 }
 
@@ -28,6 +29,7 @@ input LoginUserInput {
 }
 
 input UserInput {
+  id: ID
   name: String!
   lastname: String!
   email: String!

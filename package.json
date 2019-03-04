@@ -24,6 +24,7 @@
     "graphql-shield": "^5.3.0",
     "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.0",
+    "merge-graphql-schemas": "^1.5.8",
     "prisma-binding": "^2.3.3"
   },
   "devDependencies": {

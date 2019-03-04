@@ -31,6 +31,15 @@ export default {
     async deleteUser(parent, {id}, {db}, info) {
       await db.mutation.deleteUser({where: {id}})
       return 'Success delete user!'
+    },
+    async updateUser(parent, {data}, {db}, info) {
+      const {id, ...rest} = data
+      return db.mutation.updateUser({
+        data: rest,
+        where: {
+          id
+        }
+      })
     }
   }
 }

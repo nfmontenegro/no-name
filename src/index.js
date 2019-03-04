@@ -1,19 +1,15 @@
 import {GraphQLServer} from 'graphql-yoga'
 import {Prisma} from 'prisma-binding'
 
-import Query from './resolvers/Query'
-import Mutation from './resolvers/Mutation'
+import {default as resolvers} from './resolvers'
 
 import {permissions} from './middlewares/permissions'
 
 require('dotenv').config()
 
 const server = new GraphQLServer({
-  typeDefs: __dirname + '/prisma.graphql',
-  resolvers: {
-    Query,
-    Mutation
-  },
+  typeDefs: __dirname + '/schema.graphql',
+  resolvers,
   resolverValidationOptions: {
     requireResolversForResolveType: false
   },

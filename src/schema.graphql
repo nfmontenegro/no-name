@@ -1,7 +1,7 @@
 # import * from "./generated/prisma.graphql"
 
 type Mutation {
-  deleteUser(id: ID): Message
+  deleteUser(id: ID): String!
   createUser(data: UserInput): User
   login(data: LoginUserInput): AuthPayload
 }
@@ -14,10 +14,6 @@ type Query {
 type AuthPayload {
   token: String!
   user: User
-}
-
-type Message {
-  message: String!
 }
 
 input UserWhereInput {

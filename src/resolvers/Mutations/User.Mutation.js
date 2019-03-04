@@ -33,7 +33,7 @@ export default {
       return 'Success delete user!'
     },
     async updateUser(parent, {data}, {db}, info) {
-      const {ID, ...rest} = data
+      const {id, ...rest} = data
       return db.mutation.updateUser({
         data: rest,
         where: {

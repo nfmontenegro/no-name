@@ -1,7 +1,6 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.graphql
 secret: ${env:PRISMA_PASSWORD}
-disableAuth: true
 
 generate:
     - generator: graphql-schema

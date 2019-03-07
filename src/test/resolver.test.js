@@ -1,6 +1,6 @@
 import {createApolloFetch} from 'apollo-fetch'
 
-test('adds 1 + 2 to equal 3', () => {
+test('Login request', () => {
   const apolloFetch = createApolloFetch({
     uri: `http://localhost:4000/`
   })
@@ -19,5 +19,5 @@ test('adds 1 + 2 to equal 3', () => {
 }
 `,
     variables: {email: 'new2@gmail.com', password: '123'}
-  }).then(response => expect(response).toBeTruthy())
+  }).then(response => expect(response).toBeFalsy())
 })

@@ -7,7 +7,7 @@
     "start": "nodemon --inspect src/index.js --exec babel-node",
     "develop": "nodemon --inspect src/index.js --exec babel-node",
     "deploy": "prisma deploy --env-file .env",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [
     "express",

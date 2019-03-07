@@ -9,7 +9,7 @@ test('adds 1 + 2 to equal 3', () => {
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanN0a29nZzFib3hqMGI4NzJpZnRmY2l3IiwiaWF0IjoxNTUxNjU5MTMxfQ.4F7iRY1uQ67xNKAGHAl6HX3HVom0HuZhIvHxnIir_ig'
     }
   })
-
+  console.log(HOST, PORT)
   apolloFetch({
     query: `mutation login($email: String!, $password: String!) {
   login(data: {email: $email, password: $password}) {

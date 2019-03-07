@@ -19,5 +19,5 @@ test('Login request', () => {
 }
 `,
     variables: {email: 'new2@gmail.com', password: '123'}
-  }).then(response => expect(response).toBeTruthy())
+  }).then(response => expect(response).toBeFalsy())
 })

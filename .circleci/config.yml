@@ -4,9 +4,7 @@ jobs:
     docker:
       - image: circleci/node:8
 
-      environment:
-        PRISMA_ENDPOINT: https://eu1.prisma.sh/nicolas-flores-montenegro-f8a898/now-prisma/dev
-        PRISMA_PASSWORD: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJub3ctcHJpc21hQGRldiIsInJvbGVzIjpbImFkbWluIl19LCJpYXQiOjE1NTIwOTM4NDcsImV4cCI6MTU1MjY5ODY0N30.PlfgmfjrCIlQgGd4dANl7Zw-kvzAr4h97MlLtCqfJpw
+      environment
 
       working_directory: ~/repo
 
@@ -30,6 +28,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      # run tests!
       - run:
           echo: 'Run Tests!'
           name: tests

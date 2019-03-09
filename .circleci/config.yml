@@ -8,12 +8,12 @@ jobs:
     steps:
       - checkout
       - run:
-        name: "Set prisma endpoint environment variable"
-        command: PRISMA_ENDPOINT=https://eu1.prisma.sh/nicolas-flores-montenegro-f8a898/now-prisma/dev
+          name: "Set prisma endpoint environment variable"
+          command: PRISMA_ENDPOINT=https://eu1.prisma.sh/nicolas-flores-montenegro-f8a898/now-prisma/dev
 
       - run:
-        name: "Set prisma password environment variable"
-        command: PRISMA_PASSWORD=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJub3ctcHJpc21hQGRldiIsInJvbGVzIjpbImFkbWluIl19LCJpYXQiOjE1NTIwOTM4NDcsImV4cCI6MTU1MjY5ODY0N30.PlfgmfjrCIlQgGd4dANl7Zw-kvzAr4h97MlLtCqfJpw
+          name: "Set prisma password environment variable"
+          command: PRISMA_PASSWORD=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJub3ctcHJpc21hQGRldiIsInJvbGVzIjpbImFkbWluIl19LCJpYXQiOjE1NTIwOTM4NDcsImV4cCI6MTU1MjY5ODY0N30.PlfgmfjrCIlQgGd4dANl7Zw-kvzAr4h97MlLtCqfJpw
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}

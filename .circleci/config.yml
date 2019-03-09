@@ -3,9 +3,9 @@ jobs:
   build:
     docker:
       - image: circleci/node:8
-      environment:
-        PRISMA_ENDPOINT=$PRISMA_ENDPOINT
-        PRISMA_PASSWORD=$PRISMA_PASSWORD
+        environment:
+          PRISMA_ENDPOINT=$PRISMA_ENDPOINT
+          PRISMA_PASSWORD=$PRISMA_PASSWORD
     working_directory: ~/repo
     steps:
       - checkout

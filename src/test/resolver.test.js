@@ -12,9 +12,7 @@ test('#Resolver => Create user ', async () => {
     const deleteUser = await prisma.mutation.deleteUser({where: {email: user.email}})
     expect(deleteUser).toMatchObject(user)
 
-    const createUser = await prisma.mutation.createUser({
-      data: user
-    })
+    const createUser = await prisma.mutation.createUser({data: user})
 
     expect(createUser).toMatchObject(user)
   } catch (err) {

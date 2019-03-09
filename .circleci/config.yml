@@ -5,8 +5,8 @@ jobs:
       - image: circleci/node:8
     working_directory: ~/repo
     environment:
-      PRISMA_ENDPOINT= $PRISMA_ENDPOINT
-      PRISMA_PASSWORD= $PRISMA_PASSWORD
+      PRISMA_ENDPOINT=$PRISMA_ENDPOINT
+      PRISMA_PASSWORD=$PRISMA_PASSWORD
     steps:
       - checkout
 

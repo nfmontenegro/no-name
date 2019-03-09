@@ -12,10 +12,6 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-    compile:
-    override:
-      - chmod -x compile.sh
-      - bash ./compile.sh
 
       - run:
           name: install-dependencies
@@ -26,6 +22,9 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          name: tests
-          command: npm test
+      test:
+        override:
+          - >
+            chmod -x compile.sh
+            bash ./compile.sh
+            npm test

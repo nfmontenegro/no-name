@@ -1,20 +1,14 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/node:8
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
+      environment:
+        PRISMA_ENDPOINT: https://eu1.prisma.sh/nicolas-flores-montenegro-f8a898/now-prisma/dev
+        PRISMA_PASSWORD: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJub3ctcHJpc21hQGRldiIsInJvbGVzIjpbImFkbWluIl19LCJpYXQiOjE1NTIwOTM4NDcsImV4cCI6MTU1MjY5ODY0N30.PlfgmfjrCIlQgGd4dANl7Zw-kvzAr4h97MlLtCqfJpw
 
-    working_directory: ~/repo
+      working_directory: ~/repo
 
     steps:
       - checkout
@@ -36,7 +30,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
       - run:
           echo: 'Run Tests!'
           name: tests

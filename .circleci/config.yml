@@ -7,6 +7,7 @@ jobs:
 
     steps:
       - checkout
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
@@ -22,8 +23,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      test:
-        override:
-          - chmod -x compile.sh
-          - bash ./compile.sh
-          - npm test
+    test:
+      override:
+        - chmod -x compile.sh
+        - bash ./compile.sh
+        - npm test

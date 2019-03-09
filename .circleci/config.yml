@@ -24,7 +24,6 @@ jobs:
 
       test:
         override:
-          - >
-            chmod -x compile.sh
-            bash ./compile.sh
-            npm test
+          - chmod -x compile.sh
+          - bash ./compile.sh
+          - npm test

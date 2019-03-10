@@ -7,7 +7,7 @@
     "start": "nodemon --inspect src/index.js --exec babel-node",
     "develop": "nodemon --inspect src/index.js --exec babel-node",
     "deploy": "prisma deploy --env-file .env",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --ci --verbose --forceExit --detectOpenHandles"
   },
   "keywords": [
     "express",
@@ -38,6 +38,10 @@
     "@babel/preset-env": "^7.0.0",
     "babel-jest": "^24.1.0",
     "nodemon": "^1.18.10"
+  },
+  "jest": {
+    "verbose": true,
+    "notify": true
   },
   "babel": {
     "presets": [

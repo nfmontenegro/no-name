@@ -42,7 +42,7 @@ describe('#Resolvers prisma.graphql', () => {
         name: 'Nicolás',
         lastname: 'Flores',
         email: 'manchi@gmail.com',
-        password: '1236'
+        password: '123'
       }
 
       const updateUser = await prisma.mutation.updateUser({

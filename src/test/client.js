@@ -1,6 +1,5 @@
-const {Prisma} = require('prisma-binding')
-const fs = require('fs')
-const path = require('path')
+import {Prisma} from 'prisma-binding'
+import path from 'path'
 
 require('dotenv').config()
 

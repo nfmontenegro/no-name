@@ -1,6 +1,6 @@
-const prisma = require('./client')
+import prisma from './client'
 
-const initialUser = {
+const userInput = {
   name: 'Manchi',
   lastname: 'Flores',
   email: 'manchi@gmail.com',
@@ -9,32 +9,38 @@ const initialUser = {
 
 describe('#Resolvers prisma.graphql', () => {
   beforeEach(() => {
-    jest.setTimeout(30000)
+    jest.setTimeout(10000)
   })
 
   test('#Resolver => Create user ', async () => {
     try {
-      const user = await prisma.query.user({where: {email: initialUser.email}})
+      const user = await prisma.query.user({where: {email: userInput.email}})
       if (user) {
-        const deleteUser = await prisma.mutation.deleteUser({where: {email: initialUser.email}})
-        expect(deleteUser).toMatchObject(initialUser)
+        await prisma.mutation.deleteUser({
+          where: {
+            email: userInput.email
+          }
+        })
+      } else {
+        expect(user).toBeNull()
       }
-      const createUser = await prisma.mutation.createUser({data: initialUser})
-      expect(createUser).toMatchObject(initialUser)
+      const createUser = await prisma.mutation.createUser({data: userInput})
+      expect(createUser).toMatchObject({id: createUser.id, ...userInput})
       expect(createUser).toBeTruthy()
-      expect(createUser).toContain({name: 'Manchi', lastname: 'Flores'})
     } catch (err) {
       if (err.message.includes('type')) {
         const message = `Cannot read property 'type' of undefined`
         expect(message).toBe(err.message)
+        throw new Error(err.message)
       }
+      throw new Error(err.message)
     }
   })
 
   test('#Resolver => Update user', async () => {
     try {
       //TODO: export function to get initial user
-      const user = await prisma.query.user({where: {email: initialUser.email}})
+      const user = await prisma.query.user({where: {email: userInput.email}})
       const expectedUser = {
         id: user.id,
         name: 'Nicolás',
@@ -43,10 +49,18 @@ describe('#Resolvers prisma.graphql', () => {
         password: '123'
       }
 
-      const updateUser = await prisma.mutation.updateUser({data: {name: 'Nicolás'}, where: {id: user.id}})
+      const updateUser = await prisma.mutation.updateUser({
+        data: {
+          name: 'Nicolás'
+        },
+        where: {
+          id: user.id
+        }
+      })
+
       expect(updateUser).toMatchObject(expectedUser)
     } catch (err) {
-      console.log('Error:', err)
+      throw new Error(err.message)
     }
   })
 })

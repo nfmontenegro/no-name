@@ -8,6 +8,10 @@ const userInput = {
 }
 
 describe('#Resolvers prisma.graphql', () => {
+  beforeEach(() => {
+    jest.setTimeout(10000)
+  })
+
   test('#Resolver => Create user ', async () => {
     try {
       const user = await prisma.query.user({where: {email: userInput.email}})

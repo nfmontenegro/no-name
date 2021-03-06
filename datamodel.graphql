@@ -1,7 +1,0 @@
-type User {
-  id: ID! @unique
-  name: String!
-  lastname: String!
-  email: String! @unique
-  password: String!
-}

@@ -1,37 +1,20 @@
-import {GraphQLServer} from 'graphql-yoga'
-import {Prisma} from 'prisma-binding'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
+import store from './app/store'
+import {Provider} from 'react-redux'
 
-import {default as resolvers} from './resolvers'
-
-import {permissions} from './middlewares/permissions'
-
-require('dotenv').config()
-
-const server = new GraphQLServer({
-  typeDefs: __dirname + '/schema.graphql',
-  resolvers,
-  resolverValidationOptions: {
-    requireResolversForResolveType: false
-  },
-  context: req => ({
-    ...req,
-    db: new Prisma({
-      typeDefs: __dirname + '/generated/prisma.graphql',
-      endpoint: process.env.PRISMA_ENDPOINT,
-      secret: process.env.PRISMA_PASSWORD,
-      debug: false
-    })
-  }),
-  middlewares: [permissions]
-})
-
-const options = {
-  port: process.env.PORT,
-  formatError(err) {
-    return err.message
-  }
-}
-
-server.start(options =>
-  console.log(`Server is now running on port: ${process.env.HOST}`)
+ReactDOM.render(
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
+  document.getElementById('root')
 )
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals()

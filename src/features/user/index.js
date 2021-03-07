@@ -1,8 +1,9 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import axios from 'axios'
 
-export const userLogin = createAsyncThunk('users/login', async () =>
-  axios.post('http://127.0.0.1:8000/v1/login')
+import {signinUser} from '../../services/user'
+
+export const userLogin = createAsyncThunk('users/login', async formData =>
+  signinUser(formData)
 )
 
 const initialState = {
@@ -13,8 +14,8 @@ const initialState = {
   }
 }
 
-export const userSlice = createSlice({
-  name: 'user',
+const userSlice = createSlice({
+  name: 'users',
   initialState,
   reducers: {},
   extraReducers: {
@@ -33,6 +34,7 @@ export const userSlice = createSlice({
       }
     },
     [userLogin.rejected]: (state, action) => {
+      console.log('REJECTED ACTION:', action)
       state.user = {
         status: 'idle',
         data: {},
@@ -41,3 +43,5 @@ export const userSlice = createSlice({
     }
   }
 })
+
+export default userSlice.reducer

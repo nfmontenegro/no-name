@@ -1,19 +1,21 @@
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 
-import {userLogin} from './features/user/user.js'
+import {userLogin} from './features/user'
+
+import Button from './components/Form/Button'
 
 function App() {
   const dispatch = useDispatch()
-  const user = useSelector(state => {
-    console.log(' User reducer ', state)
-    return state.user
-  })
+  const {user: userState} = useSelector(state => state.users)
 
-  console.log('Dispatch: ', dispatch)
+  const handleClick = () => {
+    dispatch(userLogin())
+  }
+
   return (
     <div>
-      <button onClick={() => dispatch(userLogin())}> Click me </button>
+      <Button action={handleClick} textButton="Click me" loading={userState.status} />
     </div>
   )
 }

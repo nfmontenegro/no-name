@@ -4,9 +4,10 @@ import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {StatusCodes} from 'http-status-codes'
 
-import Input from '../../components/Form/Input'
-import Button from '../../components/Form/Button'
 import {userLogin} from './userSlice'
+import FormComponent from '../../components/Form/Form'
+
+import Button from '../../components/Form/Button'
 
 const UserLogin = () => {
   const dispatch = useDispatch()
@@ -19,25 +20,43 @@ const UserLogin = () => {
 
       if (payload.statusCode === StatusCodes.NOT_FOUND) {
         console.log('Email o password incorrectos')
+      } else {
+        localStorage.setItem('token', payload.data.token)
+        history.push('/')
       }
-      localStorage.setItem('token', payload.data.token)
-      history.push('/')
     }
   })
+
   const {handleSubmit, handleChange, values, isSubmitting} = formik
 
+  const formTemplate = [
+    {
+      name: 'email',
+      type: 'text',
+      value: values.email,
+      placeHolder: 'Email',
+      label: 'Email address',
+      onChange: handleChange
+    },
+    {
+      name: 'password',
+      type: 'password',
+      value: values.password,
+      placeHolder: 'Password',
+      label: 'Password',
+      onChange: handleChange
+    }
+  ]
+
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Formulario</h1>
-      <Input name="email" onChange={handleChange} value={values.email} placeholder="Email" />
-      <Input
-        name="password"
-        onChange={handleChange}
-        value={values.password}
-        placeholder="Password"
-      />
+    <FormComponent
+      formTemplate={formTemplate}
+      isSubmitting={isSubmitting}
+      handleSubmit={handleSubmit}
+      textButton="Iniciar Sesión"
+    >
       <Button loading={isSubmitting} textButton="Iniciar Sesión" />
-    </form>
+    </FormComponent>
   )
 }
 

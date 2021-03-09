@@ -9,6 +9,7 @@ const InputComponent = ({placeholder, value, name, onChange, type}) => (
     onChange={onChange}
     type={type}
     size="sm"
+    variant="flushed"
   />
 )
 

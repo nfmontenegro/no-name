@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useFormik} from 'formik'
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
@@ -7,9 +7,8 @@ import {StatusCodes} from 'http-status-codes'
 import {userLogin} from './userSlice'
 import FormComponent from '../../components/Form/Form'
 
-import Button from '../../components/Form/Button'
-
 const UserLogin = () => {
+  const [loginErrorMessage, setLoginErrorMessage] = useState(null)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -19,7 +18,7 @@ const UserLogin = () => {
       const {payload} = await dispatch(userLogin(values))
 
       if (payload.statusCode === StatusCodes.NOT_FOUND) {
-        console.log('Email o password incorrectos')
+        setLoginErrorMessage(payload.details)
       } else {
         localStorage.setItem('token', payload.data.token)
         history.push('/')
@@ -54,9 +53,8 @@ const UserLogin = () => {
       isSubmitting={isSubmitting}
       handleSubmit={handleSubmit}
       textButton="Iniciar Sesión"
-    >
-      <Button loading={isSubmitting} textButton="Iniciar Sesión" />
-    </FormComponent>
+      loginError={loginErrorMessage}
+    />
   )
 }
 

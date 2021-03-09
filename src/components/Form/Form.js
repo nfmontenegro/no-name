@@ -1,23 +1,22 @@
-import React from 'react'
-import {Container, FormControl, FormLabel, InputGroup} from '@chakra-ui/react'
+import {Container, FormControl} from '@chakra-ui/react'
 
 import Input from '../../components/Form/Input'
+import Button from '../../components/Form/Button'
 import Box from '../../components/Card'
 
-const FormComponent = ({handleSubmit, formTemplate, children}) => {
+import './Form.css'
+
+const FormComponent = ({handleSubmit, isSubmitting, formTemplate, textButton, loginError}) => {
   const renderFormControl = fields =>
     fields.map(field => (
-      <FormControl id={field.name} key={field.name}>
-        <FormLabel size>{field.label}</FormLabel>
-        <InputGroup size="md">
-          <Input
-            name={field.name}
-            type={field.type}
-            onChange={field.onChange}
-            value={field.value}
-            placeholder={field.placeHolder}
-          />
-        </InputGroup>
+      <FormControl id={field.name} key={field.name} className="form-control">
+        <Input
+          name={field.name}
+          type={field.type}
+          onChange={field.onChange}
+          value={field.value}
+          placeholder={field.placeHolder}
+        />
       </FormControl>
     ))
 
@@ -25,8 +24,9 @@ const FormComponent = ({handleSubmit, formTemplate, children}) => {
     <Container>
       <Box>
         <form onSubmit={handleSubmit}>
+          {loginError && <div>{loginError}</div>}
           {renderFormControl(formTemplate)}
-          {children}
+          <Button loading={isSubmitting} textButton={textButton} />
         </form>
       </Box>
     </Container>

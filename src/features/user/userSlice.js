@@ -34,7 +34,6 @@ const userSlice = createSlice({
       }
     },
     [userLogin.rejected]: (state, action) => {
-      console.log('REJECTED ACTION:', action)
       state.user = {
         status: 'idle',
         data: {},

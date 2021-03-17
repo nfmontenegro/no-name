@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {StatusCodes} from 'http-status-codes'
 
-import {userLogin} from './userSlice'
+import {userLogin} from '../slices/user-slice'
 import FormComponent from '../../components/Form/Form'
 
 const UserLogin = () => {
@@ -53,7 +53,7 @@ const UserLogin = () => {
       isSubmitting={isSubmitting}
       handleSubmit={handleSubmit}
       textButton="Iniciar Sesión"
-      loginError={loginErrorMessage}
+      loginErrorMessage={loginErrorMessage}
     />
   )
 }

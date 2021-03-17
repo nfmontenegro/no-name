@@ -1,10 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 
-import {signinUser} from '../../services/user'
+import {signinUser, me} from '../../api/user'
 
 export const userLogin = createAsyncThunk('users/login', async formData =>
   signinUser(formData)
 )
+
+export const userProfile = createAsyncThunk('user/profile', async () => me())
 
 const initialState = {
   user: {
@@ -34,6 +36,28 @@ const userSlice = createSlice({
       }
     },
     [userLogin.rejected]: (state, action) => {
+      state.user = {
+        status: 'idle',
+        data: {},
+        error: action.payload
+      }
+    },
+
+    [userProfile.pending]: state => {
+      state.user = {
+        status: 'loading',
+        data: {},
+        error: {}
+      }
+    },
+    [userProfile.fulfilled]: (state, action) => {
+      state.user = {
+        status: 'idle',
+        data: action.payload,
+        error: {}
+      }
+    },
+    [userProfile.rejected]: (state, action) => {
       state.user = {
         status: 'idle',
         data: {},

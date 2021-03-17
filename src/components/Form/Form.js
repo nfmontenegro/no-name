@@ -6,7 +6,13 @@ import Box from '../../components/Card'
 
 import './Form.css'
 
-const FormComponent = ({handleSubmit, isSubmitting, formTemplate, textButton, loginError}) => {
+const FormComponent = ({
+  handleSubmit,
+  isSubmitting,
+  formTemplate,
+  textButton,
+  loginErrorMessage
+}) => {
   const renderFormControl = fields =>
     fields.map(field => (
       <FormControl id={field.name} key={field.name} className="form-control">
@@ -24,7 +30,7 @@ const FormComponent = ({handleSubmit, isSubmitting, formTemplate, textButton, lo
     <Container>
       <Box>
         <form onSubmit={handleSubmit}>
-          {loginError && <div>{loginError}</div>}
+          {loginErrorMessage && <div>{loginErrorMessage}</div>}
           {renderFormControl(formTemplate)}
           <Button loading={isSubmitting} textButton={textButton} />
         </form>

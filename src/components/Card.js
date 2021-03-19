@@ -1,24 +1,8 @@
-import React from 'react'
-import {Box} from '@chakra-ui/react'
-
 const CardComponent = ({children}) => {
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Box p="6">
-        <Box d="flex" alignItems="baseline">
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-            ml="2"
-          >
-            {children}
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+    <div class="shadow-lg rounded-2xl w-64 bg-white dark:bg-gray-800 flex flex-col w-full max-w-md px-7 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+      {children}
+    </div>
   )
 }
 

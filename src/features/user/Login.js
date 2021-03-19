@@ -6,6 +6,7 @@ import {StatusCodes} from 'http-status-codes'
 
 import {userLogin} from '../slices/user-slice'
 import FormComponent from '../../components/Form/Form'
+import Card from '../../components/Card'
 
 const UserLogin = () => {
   const [loginErrorMessage, setLoginErrorMessage] = useState(null)
@@ -48,13 +49,32 @@ const UserLogin = () => {
   ]
 
   return (
-    <FormComponent
-      formTemplate={formTemplate}
-      isSubmitting={isSubmitting}
-      handleSubmit={handleSubmit}
-      textButton="Iniciar Sesión"
-      loginErrorMessage={loginErrorMessage}
-    />
+    <div className="mt-32">
+      <div className="grid justify-items-stretch">
+        <div className="justify-self-center">
+          <Card>
+            <div class="self-center mb-2 text-xl font-light text-gray-800 sm:text-2xl dark:text-white">
+              Ingresa a tu cuenta
+            </div>
+            <FormComponent
+              formTemplate={formTemplate}
+              isSubmitting={isSubmitting}
+              handleSubmit={handleSubmit}
+              textButton="Iniciar Sesión"
+              loginErrorMessage={loginErrorMessage}
+            />
+            <div class="flex ml-auto">
+              <a
+                href="#"
+                class="inline-flex mt-2 text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100 hover:text-gray-700 dark:hover:text-white"
+              >
+                No tienes cuenta?
+              </a>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
   )
 }
 

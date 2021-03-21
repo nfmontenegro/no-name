@@ -9,7 +9,7 @@ export const userLogin = createAsyncThunk('users/login', async formData =>
 export const userProfile = createAsyncThunk('user/profile', async () => me())
 
 const initialState = {
-  user: {
+  users: {
     status: 'idle',
     data: {},
     error: {}
@@ -19,24 +19,28 @@ const initialState = {
 const userSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    userLogout: state => {
+      state.users = initialState.users
+    }
+  },
   extraReducers: {
     [userLogin.pending]: state => {
-      state.user = {
+      state.users = {
         status: 'loading',
         data: {},
         error: {}
       }
     },
     [userLogin.fulfilled]: (state, action) => {
-      state.user = {
+      state.users = {
         status: 'idle',
-        data: action.payload,
+        data: action.payload.data,
         error: {}
       }
     },
     [userLogin.rejected]: (state, action) => {
-      state.user = {
+      state.users = {
         status: 'idle',
         data: {},
         error: action.payload
@@ -44,21 +48,21 @@ const userSlice = createSlice({
     },
 
     [userProfile.pending]: state => {
-      state.user = {
+      state.users = {
         status: 'loading',
         data: {},
         error: {}
       }
     },
     [userProfile.fulfilled]: (state, action) => {
-      state.user = {
+      state.users = {
         status: 'idle',
-        data: action.payload,
+        data: action.payload.data,
         error: {}
       }
     },
     [userProfile.rejected]: (state, action) => {
-      state.user = {
+      state.users = {
         status: 'idle',
         data: {},
         error: action.payload
@@ -67,4 +71,5 @@ const userSlice = createSlice({
   }
 })
 
+export const {userLogout} = userSlice.actions
 export default userSlice.reducer

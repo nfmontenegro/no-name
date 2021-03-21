@@ -1,4 +1,5 @@
 const Home = () => {
-  return 'HOME'
+  return 'Hola mundo'
 }
+
 export default Home

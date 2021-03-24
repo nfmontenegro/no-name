@@ -18,7 +18,7 @@ const UserLogin = () => {
     onSubmit: async values => {
       const {payload} = await dispatch(userLogin(values))
 
-      if (payload.statusCode === StatusCodes.NOT_FOUND) {
+      if (payload.statusCode && payload.statusCode !== StatusCodes.OK) {
         setLoginErrorMessage(payload.details)
       } else {
         localStorage.setItem('token', payload.data.token)
@@ -61,15 +61,15 @@ const UserLogin = () => {
               isSubmitting={isSubmitting}
               handleSubmit={handleSubmit}
               textButton="Iniciar Sesión"
-              loginErrorMessage={loginErrorMessage}
+              errorMessage={loginErrorMessage}
             />
-            <div class="flex ml-auto">
-              <a
-                href="#"
-                class="inline-flex mt-2 text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100 hover:text-gray-700 dark:hover:text-white"
+            <div className="flex ml-auto">
+              <div
+                className="inline-flex mt-2 cursor-pointer text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100 hover:text-gray-700 dark:hover:text-white"
+                onClick={() => history.push('/register')}
               >
                 No tienes cuenta?
-              </a>
+              </div>
             </div>
           </Card>
         </div>

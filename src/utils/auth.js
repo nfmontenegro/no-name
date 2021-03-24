@@ -12,7 +12,7 @@ const ProtectedRoute = props => {
 
   useEffect(() => {
     const getUserProfile = async () => {
-      const response = await dispatch(await userProfile())
+      const response = await dispatch(userProfile())
       setUser(response.payload)
     }
     getUserProfile()

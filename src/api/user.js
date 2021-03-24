@@ -19,4 +19,14 @@ const me = async () => {
   const response = await API(options)
   return response.data
 }
-export {signinUser, me}
+
+const registerUser = async formData => {
+  const options = {
+    method: 'POST',
+    url: '/signup',
+    data: formData
+  }
+  const response = await API(options)
+  return response.data
+}
+export {signinUser, me, registerUser}

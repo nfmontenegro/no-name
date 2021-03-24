@@ -1,17 +1,43 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 
-import {signinUser, me} from '../../api/user'
+import {signinUser, me, registerUser} from '../../api/user'
 
-export const userLogin = createAsyncThunk('users/login', async formData =>
+export const userLogin = createAsyncThunk('@@USER/LOGIN', async formData =>
   signinUser(formData)
 )
 
-export const userProfile = createAsyncThunk('user/profile', async () => me())
+export const userProfile = createAsyncThunk('@@USER/PROFILE', async () => me())
+
+export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async formData =>
+  registerUser(formData)
+)
 
 const initialState = {
   users: {
     status: 'idle',
     data: {},
+    error: {}
+  }
+}
+
+const hasPrefix = (action, prefix) => action.type.startsWith(prefix)
+const isPending = action => action.type.endsWith('/pending')
+const isRejected = action => action.type.endsWith('/rejected')
+
+const isPendingAction = prefix => action => {
+  // Note: this cast to AnyAction could also be `any` or whatever fits your case best
+  return hasPrefix(action, prefix) && isPending(action)
+}
+
+const isRejectedAction = prefix => action => {
+  // Note: this cast to AnyAction could also be `any` or whatever fits your case best - like if you had standardized errors and used `rejectWithValue`
+  return hasPrefix(action, prefix) && isRejected(action)
+}
+
+const fulfilledPayloadReducer = (state, action) => {
+  state.users = {
+    status: 'idle',
+    data: action.payload.data,
     error: {}
   }
 }
@@ -24,50 +50,25 @@ const userSlice = createSlice({
       state.users = initialState.users
     }
   },
-  extraReducers: {
-    [userLogin.pending]: state => {
-      state.users = {
-        status: 'loading',
-        data: {},
-        error: {}
-      }
-    },
-    [userLogin.fulfilled]: (state, action) => {
-      state.users = {
-        status: 'idle',
-        data: action.payload.data,
-        error: {}
-      }
-    },
-    [userLogin.rejected]: (state, action) => {
-      state.users = {
-        status: 'idle',
-        data: {},
-        error: action.payload
-      }
-    },
-
-    [userProfile.pending]: state => {
-      state.users = {
-        status: 'loading',
-        data: {},
-        error: {}
-      }
-    },
-    [userProfile.fulfilled]: (state, action) => {
-      state.users = {
-        status: 'idle',
-        data: action.payload.data,
-        error: {}
-      }
-    },
-    [userProfile.rejected]: (state, action) => {
-      state.users = {
-        status: 'idle',
-        data: {},
-        error: action.payload
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(userLogin.fulfilled, fulfilledPayloadReducer)
+      .addCase(userProfile.fulfilled, fulfilledPayloadReducer)
+      .addCase(userRegisterAction.fulfilled, fulfilledPayloadReducer)
+      .addMatcher(isPendingAction('user/'), state => {
+        state.users = {
+          status: 'loading',
+          data: {},
+          error: {}
+        }
+      })
+      .addMatcher(isRejectedAction('user/'), (state, action) => {
+        state.users = {
+          status: 'idle',
+          data: {},
+          error: action.payload.data
+        }
+      })
   }
 })
 

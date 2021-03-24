@@ -89,7 +89,7 @@ const Nav = ({children}) => {
               </li>
             </ul>
           </div>
-          {users.data.id && (
+          {users.data && users.data.id ? (
             <ul className="flex items-center hidden space-x-8 lg:flex">
               <li>
                 <div
@@ -99,11 +99,12 @@ const Nav = ({children}) => {
                   onClick={() => history.push('/login')}
                 >
                   Perfil
-                </div>
-              </li>
+                </div>{' '}
+              </li>{' '}
               <li>
+                {' '}
                 <div
-                  className="inline-flex cursor-pointer items-center justify-center h-12 px-6 font-medium transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                  className="inline-flex cursor-pointer items-center justify-center h-12 px-6 font-medium transition duration-200 rounded shadow-md  bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                   aria-label="Sign up"
                   title="Sign up"
                   onClick={() => handleLogout(userLogout)}
@@ -112,9 +113,7 @@ const Nav = ({children}) => {
                 </div>
               </li>
             </ul>
-          )}
-
-          {!users.data.id && (
+          ) : (
             <ul className="flex items-center hidden space-x-8 lg:flex">
               <li>
                 <div
@@ -128,7 +127,7 @@ const Nav = ({children}) => {
               </li>
               <li>
                 <div
-                  className="inline-flex cursor-pointer items-center justify-center h-12 px-6 font-medium transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                  className="inline-flex cursor-pointer items-center justify-center h-12 px-6 font-medium transition duration-200 rounded shadow-md bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white focus:shadow-outline focus:outline-none"
                   aria-label="Sign up"
                   title="Sign up"
                   onClick={() => history.push('/register')}

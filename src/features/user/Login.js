@@ -3,6 +3,7 @@ import {useFormik} from 'formik'
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {StatusCodes} from 'http-status-codes'
+import * as Yup from 'yup'
 
 import {userLogin} from '../slices/user-slice'
 import FormComponent from '../../components/Form/Form'
@@ -13,8 +14,19 @@ const UserLogin = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const SigninSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email')
+      .required('Required'),
+    password: Yup.string()
+      .min(5, 'Too short!')
+      .max(10, 'Too long!')
+      .required('Required')
+  })
+
   const formik = useFormik({
     initialValues: {email: '', password: ''},
+    validationSchema: SigninSchema,
     onSubmit: async values => {
       const {payload} = await dispatch(userLogin(values))
       if (payload.statusCode && payload.statusCode !== StatusCodes.OK) {
@@ -26,7 +38,7 @@ const UserLogin = () => {
     }
   })
 
-  const {handleSubmit, handleChange, values, isSubmitting} = formik
+  const {handleSubmit, handleChange, values, isSubmitting, errors} = formik
 
   const formTemplate = [
     {
@@ -61,6 +73,7 @@ const UserLogin = () => {
               handleSubmit={handleSubmit}
               textButton="Iniciar Sesión"
               errorMessage={loginErrorMessage}
+              errors={errors}
             />
             <div className="flex ml-auto">
               <div

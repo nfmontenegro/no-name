@@ -31,8 +31,8 @@ export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async form
 const initialState = {
   users: {
     loading: false,
-    data: {},
-    error: {}
+    data: null,
+    error: null
   }
 }
 
@@ -51,11 +51,10 @@ const isRejectedAction = prefix => action => {
 }
 
 const fulfilledPayloadReducer = (state, action) => {
-  console.log('@@ ACTION: ', action)
   state.users = {
     loading: false,
     data: action.payload.data,
-    error: {}
+    error: null
   }
 }
 
@@ -75,14 +74,14 @@ const userSlice = createSlice({
       .addMatcher(isPendingAction('@@USER/'), state => {
         state.users = {
           loading: true,
-          data: {},
-          error: {}
+          data: null,
+          error: null
         }
       })
       .addMatcher(isRejectedAction('@@USER/'), (state, action) => {
         state.users = {
           loading: false,
-          data: {},
+          data: null,
           error: action.payload.data
         }
       })

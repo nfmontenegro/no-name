@@ -1,6 +1,7 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import {useFormik} from 'formik'
 import {useDispatch, useSelector} from 'react-redux'
+import * as Yup from 'yup'
 
 import FormComponent from '../../components/Form/Form'
 import Card from '../../components/Card'
@@ -10,20 +11,41 @@ import {StatusCodes} from 'http-status-codes'
 const UserRegister = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const dispatch = useDispatch()
-  const userState = useSelector(state => state.userReducer.users)
+
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, 'Too short!')
+      .max(50, 'Too long!')
+      .required('Required'),
+    lastname: Yup.string()
+      .min(2, 'Too short!')
+      .max(50, 'Too long!')
+      .required('Required'),
+    email: Yup.string()
+      .email('Invalid email')
+      .required('Required'),
+    password: Yup.string()
+      .min(5, 'Too short!')
+      .max(10, 'Too long!')
+      .required('Required')
+  })
 
   const formik = useFormik({
     initialValues: {name: '', lastname: '', email: '', password: ''},
+    validationSchema: SignupSchema,
     onSubmit: async values => {
       const {payload} = await dispatch(userRegisterAction(values))
 
       if (payload.statusCode && payload.statusCode !== StatusCodes.CREATED) {
         setErrorMessage(payload.details)
+      } else {
+        //change variable name
+        setErrorMessage('Registrado exitosamente!')
       }
     }
   })
 
-  const {handleSubmit, handleChange, values} = formik
+  const {handleSubmit, handleChange, values, isSubmitting, errors} = formik
 
   const formTemplate = [
     {
@@ -70,10 +92,11 @@ const UserRegister = () => {
             </div>
             <FormComponent
               formTemplate={formTemplate}
+              isSubmitting={isSubmitting}
               handleSubmit={handleSubmit}
               textButton="Registrarse"
-              loading={userState.status}
               errorMessage={errorMessage}
+              errors={errors}
             />
           </Card>
         </div>

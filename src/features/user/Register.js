@@ -20,7 +20,6 @@ const UserRegister = () => {
       if (payload.statusCode && payload.statusCode !== StatusCodes.CREATED) {
         setErrorMessage(payload.details)
       }
-      console.log('@@ REGISTRADO')
     }
   })
 

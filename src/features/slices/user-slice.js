@@ -1,20 +1,36 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 
-import {signinUser, me, registerUser} from '../../api/user'
+import {apiClient} from '../../api/user'
 
-export const userLogin = createAsyncThunk('@@USER/LOGIN', async formData =>
-  signinUser(formData)
-)
+export const userLogin = createAsyncThunk('@@USER/LOGIN', async formData => {
+  const options = {
+    endpoint: 'signin',
+    method: 'POST',
+    data: formData
+  }
+  return apiClient(options)
+})
 
-export const userProfile = createAsyncThunk('@@USER/PROFILE', async () => me())
+export const userProfile = createAsyncThunk('@@USER/PROFILE', async () => {
+  const options = {
+    endpoint: 'users/me',
+    method: 'GET'
+  }
+  return apiClient(options)
+})
 
-export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async formData =>
-  registerUser(formData)
-)
+export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async formData => {
+  const options = {
+    endpoint: 'signup',
+    method: 'POST',
+    data: formData
+  }
+  return apiClient(options)
+})
 
 const initialState = {
   users: {
-    status: 'idle',
+    loading: false,
     data: {},
     error: {}
   }
@@ -35,8 +51,9 @@ const isRejectedAction = prefix => action => {
 }
 
 const fulfilledPayloadReducer = (state, action) => {
+  console.log('@@ ACTION: ', action)
   state.users = {
-    status: 'idle',
+    loading: false,
     data: action.payload.data,
     error: {}
   }
@@ -55,16 +72,16 @@ const userSlice = createSlice({
       .addCase(userLogin.fulfilled, fulfilledPayloadReducer)
       .addCase(userProfile.fulfilled, fulfilledPayloadReducer)
       .addCase(userRegisterAction.fulfilled, fulfilledPayloadReducer)
-      .addMatcher(isPendingAction('user/'), state => {
+      .addMatcher(isPendingAction('@@USER/'), state => {
         state.users = {
-          status: 'loading',
+          loading: true,
           data: {},
           error: {}
         }
       })
-      .addMatcher(isRejectedAction('user/'), (state, action) => {
+      .addMatcher(isRejectedAction('@@USER/'), (state, action) => {
         state.users = {
-          status: 'idle',
+          loading: false,
           data: {},
           error: action.payload.data
         }
@@ -72,5 +89,5 @@ const userSlice = createSlice({
   }
 })
 
-export const {userLogout} = userSlice.actions
+export const {userLogout, fetchRequest} = userSlice.actions
 export default userSlice.reducer

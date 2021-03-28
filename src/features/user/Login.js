@@ -17,7 +17,6 @@ const UserLogin = () => {
     initialValues: {email: '', password: ''},
     onSubmit: async values => {
       const {payload} = await dispatch(userLogin(values))
-
       if (payload.statusCode && payload.statusCode !== StatusCodes.OK) {
         setLoginErrorMessage(payload.details)
       } else {

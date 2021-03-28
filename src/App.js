@@ -1,24 +1,22 @@
 import React from 'react'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 
-import UserLogin from './features/user/Login'
-import UserRegister from './features/user/Register'
-import Nav from './components/Navbar/Nav'
-import Home from './Home'
+const UserLogin = React.lazy(() => import('./features/user/Login'))
+const UserRegister = React.lazy(() => import('./features/user/Register'))
 
-import ProtectedRoute from './utils/auth'
+const Nav = React.lazy(() => import('./components/Navbar/Nav'))
+const Home = React.lazy(() => import('./Home'))
+const ProtectedRoute = React.lazy(() => import('./utils/auth'))
 
 function App() {
   return (
-    <Router>
-      <Nav>
-        <Switch>
-          <Route path="/login" component={UserLogin} />
-          <Route path="/register" component={UserRegister} />
-          <ProtectedRoute path="/" component={Home} />
-        </Switch>
-      </Nav>
-    </Router>
+    <Nav>
+      <Switch>
+        <Route path="/login" component={UserLogin} />
+        <Route path="/register" component={UserRegister} />
+        <ProtectedRoute path="/" component={Home} />
+      </Switch>
+    </Nav>
   )
 }
 

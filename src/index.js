@@ -5,11 +5,16 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import store from './app/store'
 import {Provider} from 'react-redux'
+import {BrowserRouter as Router} from 'react-router-dom'
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Router>
+          <App />
+        </Router>
+      </React.Suspense>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')

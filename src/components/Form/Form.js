@@ -7,7 +7,7 @@ const FormComponent = ({
   handleSubmit,
   formTemplate,
   textButton,
-  errorMessage,
+  message,
   loading,
   errors,
   isValid
@@ -32,7 +32,7 @@ const FormComponent = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      {errorMessage && <div>{errorMessage}</div>}
+      {message && <div>{message}</div>}
       {renderFormControl(formTemplate, errors)}
       <Button loading={loading} textButton={textButton} isValid={isValid} />
     </form>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useFormik} from 'formik'
+import {useFormik, ErrorMessage} from 'formik'
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {StatusCodes} from 'http-status-codes'
@@ -10,7 +10,7 @@ import FormComponent from '../../components/Form/Form'
 import Card from '../../components/Card'
 
 const UserLogin = () => {
-  const [loginErrorMessage, setLoginErrorMessage] = useState(null)
+  const [message, setMessage] = useState(null)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -30,7 +30,7 @@ const UserLogin = () => {
     onSubmit: async values => {
       const {payload} = await dispatch(userLogin(values))
       if (payload.statusCode && payload.statusCode !== StatusCodes.OK) {
-        setLoginErrorMessage(payload.details)
+        setMessage(payload.details)
       } else {
         localStorage.setItem('token', payload.data.token)
         history.push('/')
@@ -72,7 +72,7 @@ const UserLogin = () => {
               isSubmitting={isSubmitting}
               handleSubmit={handleSubmit}
               textButton="Iniciar Sesión"
-              errorMessage={loginErrorMessage}
+              message={message}
               errors={errors}
             />
             <div className="flex ml-auto">

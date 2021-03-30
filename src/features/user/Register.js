@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import {useFormik} from 'formik'
-import {useDispatch, useSelector} from 'react-redux'
+import {useFormik, ErrorMessage} from 'formik'
+import {useDispatch} from 'react-redux'
 import * as Yup from 'yup'
 
 import FormComponent from '../../components/Form/Form'
@@ -9,7 +9,7 @@ import {userRegisterAction} from '../slices/user-slice'
 import {StatusCodes} from 'http-status-codes'
 
 const UserRegister = () => {
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [message, setMessage] = useState(null)
   const dispatch = useDispatch()
 
   const SignupSchema = Yup.object().shape({
@@ -37,10 +37,9 @@ const UserRegister = () => {
       const {payload} = await dispatch(userRegisterAction(values))
 
       if (payload.statusCode && payload.statusCode !== StatusCodes.CREATED) {
-        setErrorMessage(payload.details)
+        setMessage(payload.details)
       } else {
-        //change variable name
-        setErrorMessage('Registrado exitosamente!')
+        setMessage('Registrado exitosamente!')
       }
     }
   })
@@ -95,7 +94,7 @@ const UserRegister = () => {
               isSubmitting={isSubmitting}
               handleSubmit={handleSubmit}
               textButton="Registrarse"
-              errorMessage={errorMessage}
+              message={message}
               errors={errors}
             />
           </Card>

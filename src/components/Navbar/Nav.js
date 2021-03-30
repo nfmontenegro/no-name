@@ -89,7 +89,7 @@ const Nav = ({children}) => {
               </li>
             </ul>
           </div>
-          {users.data && users.data.id ? (
+          {users.data && users.data.role ? (
             <ul className="flex items-center hidden space-x-8 lg:flex">
               <li>
                 <div

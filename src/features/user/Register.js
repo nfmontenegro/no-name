@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useFormik, ErrorMessage} from 'formik'
+import {useFormik} from 'formik'
 import {useDispatch} from 'react-redux'
 import * as Yup from 'yup'
 
@@ -21,6 +21,13 @@ const UserRegister = () => {
       .min(2, 'Too short!')
       .max(50, 'Too long!')
       .required('Required'),
+    username: Yup.string()
+      .min(2, 'Too short!')
+      .max(50, 'Too long!')
+      .required('Required'),
+    phone: Yup.string()
+      .min(8, 'Too short!')
+      .max(8, 'Too long!'),
     email: Yup.string()
       .email('Invalid email')
       .required('Required'),
@@ -31,7 +38,14 @@ const UserRegister = () => {
   })
 
   const formik = useFormik({
-    initialValues: {name: '', lastname: '', email: '', password: ''},
+    initialValues: {
+      name: '',
+      lastname: '',
+      email: '',
+      password: '',
+      username: '',
+      gender: ['male', 'female']
+    },
     validationSchema: SignupSchema,
     onSubmit: async values => {
       const {payload} = await dispatch(userRegisterAction(values))
@@ -64,6 +78,30 @@ const UserRegister = () => {
       onChange: handleChange
     },
     {
+      name: 'username',
+      type: 'text',
+      values: values.username,
+      placeHolder: 'username',
+      label: 'Username',
+      onChange: handleChange
+    },
+    {
+      name: 'phone',
+      type: 'text',
+      values: values.phone,
+      placeHolder: 'Teléfono',
+      label: 'Teléfono',
+      onChange: handleChange
+    },
+    {
+      name: 'gender',
+      type: 'select',
+      values: values.gender,
+      placeHolder: 'Género',
+      label: 'Género',
+      onChange: handleChange
+    },
+    {
       name: 'email',
       type: 'email',
       values: values.email,
@@ -82,25 +120,17 @@ const UserRegister = () => {
   ]
 
   return (
-    <div className="mt-32">
-      <div className="grid justify-items-stretch">
-        <div className="justify-self-center">
-          <Card>
-            <div class="self-center mb-2 text-xl font-light text-gray-800 sm:text-2xl dark:text-white">
-              Registrate
-            </div>
-            <FormComponent
-              formTemplate={formTemplate}
-              isSubmitting={isSubmitting}
-              handleSubmit={handleSubmit}
-              textButton="Registrarse"
-              message={message}
-              errors={errors}
-            />
-          </Card>
-        </div>
-      </div>
-    </div>
+    <Card>
+      <h1 class="text-2xl font-semibold text-gray-800">Registrate</h1>
+      <FormComponent
+        formTemplate={formTemplate}
+        isSubmitting={isSubmitting}
+        handleSubmit={handleSubmit}
+        textButton="Registrarse"
+        message={message}
+        errors={errors}
+      />
+    </Card>
   )
 }
 

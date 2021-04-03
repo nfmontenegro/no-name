@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useFormik, ErrorMessage} from 'formik'
+import {useFormik} from 'formik'
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {StatusCodes} from 'http-status-codes'
@@ -60,33 +60,25 @@ const UserLogin = () => {
   ]
 
   return (
-    <div className="mt-32">
-      <div className="grid justify-items-stretch">
-        <div className="justify-self-center">
-          <Card>
-            <div class="self-center mb-2 text-xl font-light text-gray-800 sm:text-2xl dark:text-white">
-              Ingresa a tu cuenta
-            </div>
-            <FormComponent
-              formTemplate={formTemplate}
-              isSubmitting={isSubmitting}
-              handleSubmit={handleSubmit}
-              textButton="Iniciar Sesión"
-              message={message}
-              errors={errors}
-            />
-            <div className="flex ml-auto">
-              <div
-                className="inline-flex mt-2 cursor-pointer text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100 hover:text-gray-700 dark:hover:text-white"
-                onClick={() => history.push('/register')}
-              >
-                No tienes cuenta?
-              </div>
-            </div>
-          </Card>
+    <Card>
+      <h1 class="text-2xl font-semibold text-gray-800">Ingresa a tu cuenta</h1>
+      <FormComponent
+        formTemplate={formTemplate}
+        isSubmitting={isSubmitting}
+        handleSubmit={handleSubmit}
+        textButton="Iniciar Sesión"
+        message={message}
+        errors={errors}
+      />
+      <div className="flex ml-auto">
+        <div
+          className="inline-flex mt-2 cursor-pointer text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100 hover:text-gray-700 dark:hover:text-white"
+          onClick={() => history.push('/register')}
+        >
+          No tienes cuenta?
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
 

@@ -3,6 +3,7 @@ import {Switch, Route} from 'react-router-dom'
 
 const UserLogin = React.lazy(() => import('./features/user/Login'))
 const UserRegister = React.lazy(() => import('./features/user/Register'))
+const Profile = React.lazy(() => import('./features/user/Profile'))
 
 const Nav = React.lazy(() => import('./components/Navbar/Nav'))
 const Home = React.lazy(() => import('./Home'))
@@ -14,7 +15,8 @@ function App() {
       <Switch>
         <Route path="/login" component={UserLogin} />
         <Route path="/register" component={UserRegister} />
-        <ProtectedRoute path="/" component={Home} />
+        <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute path="/profile" component={Profile} />
       </Switch>
     </Nav>
   )

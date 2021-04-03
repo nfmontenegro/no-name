@@ -7,10 +7,12 @@ import store from './app/store'
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router} from 'react-router-dom'
 
+import Loading from './components/Loading'
+
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<Loading />}>
         <Router>
           <App />
         </Router>

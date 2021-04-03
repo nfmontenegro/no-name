@@ -96,7 +96,7 @@ const Nav = ({children}) => {
                   aria-label="Sign in"
                   title="Sign in"
                   className="font-medium tracking-wide cursor-pointer text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                  onClick={() => history.push('/login')}
+                  onClick={() => history.push('/profile')}
                 >
                   Perfil
                 </div>{' '}

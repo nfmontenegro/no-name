@@ -1,7 +1,7 @@
 import {useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 
-import Button from '../../components/Button'
+import Button from '../../components/Core/Button'
 
 const Profile = () => {
   const history = useHistory()

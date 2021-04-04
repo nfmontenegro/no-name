@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux'
 import * as Yup from 'yup'
 
 import FormComponent from '../../components/Form/Form'
-import Card from '../../components/Card'
+import Card from '../../components/Core/Card'
 import {userRegisterAction} from '../slices/user-slice'
 import {StatusCodes} from 'http-status-codes'
 
@@ -28,6 +28,7 @@ const UserRegister = () => {
     phone: Yup.string()
       .min(8, 'Too short!')
       .max(8, 'Too long!'),
+    gender: Yup.string().required('Género es requerido'),
     email: Yup.string()
       .email('Invalid email')
       .required('Required'),
@@ -44,10 +45,12 @@ const UserRegister = () => {
       email: '',
       password: '',
       username: '',
-      gender: ['male', 'female']
+      gender: '',
+      phone: ''
     },
     validationSchema: SignupSchema,
     onSubmit: async values => {
+      console.log('>> Values: ', values)
       const {payload} = await dispatch(userRegisterAction(values))
 
       if (payload.statusCode && payload.statusCode !== StatusCodes.CREATED) {
@@ -96,7 +99,7 @@ const UserRegister = () => {
     {
       name: 'gender',
       type: 'select',
-      values: values.gender,
+      values: ['male', 'female'],
       placeHolder: 'Género',
       label: 'Género',
       onChange: handleChange

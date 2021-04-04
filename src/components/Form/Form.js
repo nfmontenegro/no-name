@@ -1,5 +1,6 @@
 import Input from '../../components/Form/Input'
-import Button from '../../components/Button'
+import Button from './Button'
+import Select from './Select'
 
 import './Form.css'
 
@@ -19,15 +20,11 @@ const FormComponent = ({
       return (
         <>
           {field.type === 'select' && (
-            <select
-              class="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-              name="animals"
-            >
-              <option value="">Select an options</option>
-              {field.values.map(option => (
-                <option value={option}>{option}</option>
-              ))}
-            </select>
+            <Select
+              fieldName={fieldName}
+              fieldValues={field.values}
+              onChange={field.onChange}
+            />
           )}
           {inputType.includes(field.type) && (
             <Input

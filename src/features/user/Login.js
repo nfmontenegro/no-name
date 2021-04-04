@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 
 import {userLogin} from '../slices/user-slice'
 import FormComponent from '../../components/Form/Form'
-import Card from '../../components/Card'
+import Card from '../../components/Core/Card'
 
 const UserLogin = () => {
   const [message, setMessage] = useState(null)

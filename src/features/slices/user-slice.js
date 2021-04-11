@@ -28,6 +28,17 @@ export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async form
   return apiClient(options)
 })
 
+export const updateUser = createAsyncThunk('@@USER/UPDATE', async formData => {
+  const {userId, ...rest} = formData
+  const options = {
+    endpoint: `users/${userId}`,
+    method: 'PUT',
+    data: rest
+  }
+
+  return apiClient(options)
+})
+
 const initialState = {
   users: {
     loading: false,
@@ -71,6 +82,7 @@ const userSlice = createSlice({
       .addCase(userLogin.fulfilled, fulfilledPayloadReducer)
       .addCase(userProfile.fulfilled, fulfilledPayloadReducer)
       .addCase(userRegisterAction.fulfilled, fulfilledPayloadReducer)
+      .addCase(updateUser.fulfilled, fulfilledPayloadReducer)
       .addMatcher(isPendingAction('@@USER/'), state => {
         state.users = {
           loading: true,

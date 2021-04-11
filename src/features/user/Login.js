@@ -16,7 +16,7 @@ const UserLogin = () => {
 
   const SigninSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Invalid email')
+      .email('Email not valid')
       .required('Required'),
     password: Yup.string()
       .min(5, 'Too short!')

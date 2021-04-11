@@ -31,6 +31,7 @@ const FormComponent = ({
               key={fieldName}
               name={fieldName}
               type={field.type}
+              label={field.label}
               onChange={field.onChange}
               value={field.value}
               placeholder={field.placeHolder}

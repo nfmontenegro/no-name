@@ -1,4 +1,4 @@
-const CardComponent = ({children}) => (
+const Card = ({children}) => (
   <div className="mt-32">
     <div className="grid justify-items-stretch">
       <div className="justify-self-center">
@@ -10,4 +10,4 @@ const CardComponent = ({children}) => (
   </div>
 )
 
-export default CardComponent
+export default Card

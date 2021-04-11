@@ -1,7 +1,7 @@
-const InputComponent = ({placeholder, value, name, onChange, type}) => (
+const InputComponent = ({placeholder, value, name, label, onChange, type}) => (
   <div class=" relative mt-6">
     <label for="name-with-label" class="text-gray-700 mb-8">
-      {name}
+      {label}
       <span class="text-red-500 required-dot">*</span>
     </label>
     <input

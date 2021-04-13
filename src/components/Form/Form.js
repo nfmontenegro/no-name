@@ -13,35 +13,35 @@ const FormComponent = ({
   errors,
   isValid
 }) => {
-  const renderFormControl = (fields, errors) =>
-    fields.map(field => {
+  function renderFormControl(fields, errors) {
+    return fields.map(field => {
       const inputType = ['text', 'email', 'password']
       const fieldName = field.name
       return (
-        <>
-          {field.type === 'select' && (
+        <div key={fieldName}>
+          {field.type === 'select' ? (
             <Select
               fieldName={fieldName}
               fieldValues={field.values}
               onChange={field.onChange}
             />
-          )}
-          {inputType.includes(field.type) && (
+          ) : null}
+
+          {inputType.includes(field.type) ? (
             <Input
-              key={fieldName}
               name={fieldName}
               type={field.type}
-              label={field.label}
               onChange={field.onChange}
               value={field.value}
               placeholder={field.placeHolder}
             />
-          )}
+          ) : null}
 
-          {errors[fieldName] ? <div>{errors[fieldName]}</div> : null}
-        </>
+          {errors[fieldName] ? <div key={fieldName}>{errors[fieldName]}</div> : null}
+        </div>
       )
     })
+  }
 
   return (
     <form onSubmit={handleSubmit}>

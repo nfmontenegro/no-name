@@ -1,9 +1,10 @@
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
 import {StatusCodes} from 'http-status-codes'
 import {Redirect} from 'react-router-dom'
 
 import {userProfile} from '../features/slices/user-slice'
+import {toggleMenu} from '../features/slices/menu-slice'
 
 const ProtectedRoute = props => {
   const {component: Component} = props
@@ -17,6 +18,11 @@ const ProtectedRoute = props => {
     }
     getUserProfile()
   }, [dispatch])
+
+  //in each render we will hide the menu options
+  useEffect(() => {
+    dispatch(toggleMenu(false))
+  })
 
   return user.statusCode === StatusCodes.UNAUTHORIZED ? (
     <Redirect to="/login" />

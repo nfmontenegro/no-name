@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {useFormik} from 'formik'
 import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import * as Yup from 'yup'
 
 import FormComponent from '../../components/Form/Form'
@@ -10,6 +11,7 @@ import {StatusCodes} from 'http-status-codes'
 
 const UserRegister = () => {
   const [message, setMessage] = useState(null)
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const SignupSchema = Yup.object().shape({
@@ -123,8 +125,7 @@ const UserRegister = () => {
   ]
 
   return (
-    <Card>
-      <h1 class="text-2xl font-semibold text-gray-800">Registrate</h1>
+    <Card title="Register your account">
       <FormComponent
         formTemplate={formTemplate}
         isSubmitting={isSubmitting}
@@ -133,6 +134,17 @@ const UserRegister = () => {
         message={message}
         errors={errors}
       />
+
+      <div className="flex items-center justify-between">
+        <div className="text-sm">
+          <div
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+            onClick={() => history.push('login')}
+          >
+            Already have account?
+          </div>
+        </div>
+      </div>
     </Card>
   )
 }

@@ -45,8 +45,7 @@ const UserLogin = () => {
       name: 'email',
       type: 'text',
       value: values.email,
-      placeHolder: 'Email',
-      label: 'Email address',
+      placeHolder: 'Email address',
       onChange: handleChange
     },
     {
@@ -54,14 +53,12 @@ const UserLogin = () => {
       type: 'password',
       value: values.password,
       placeHolder: 'Password',
-      label: 'Password',
       onChange: handleChange
     }
   ]
 
   return (
-    <Card>
-      <h1 class="text-2xl font-semibold text-gray-800">Ingresa a tu cuenta</h1>
+    <Card title="Sign in to your account">
       <FormComponent
         formTemplate={formTemplate}
         isSubmitting={isSubmitting}
@@ -70,12 +67,23 @@ const UserLogin = () => {
         message={message}
         errors={errors}
       />
-      <div className="flex ml-auto">
-        <div
-          className="inline-flex mt-2 cursor-pointer text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100 hover:text-gray-700 dark:hover:text-white"
-          onClick={() => history.push('/register')}
-        >
-          No tienes cuenta?
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <input
+            id="remember_me"
+            name="remember_me"
+            type="checkbox"
+            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+          />
+          <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
+            Remember me
+          </label>
+        </div>
+
+        <div className="text-sm">
+          <div className="font-medium text-indigo-600 hover:text-indigo-500">
+            Forgot your password?
+          </div>
         </div>
       </div>
     </Card>

@@ -1,11 +1,15 @@
-const Card = ({children}) => (
-  <div className="mt-32">
-    <div className="grid justify-items-stretch">
-      <div className="justify-self-center">
-        <div className="shadow rounded-2xl w-64 bg-white dark:bg-gray-400 flex flex-col w-full max-w-md px-7 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
-          {children}
-        </div>
+const Card = ({title, children}) => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-md w-full space-y-2">
+      <div>
+        <img
+          className="mx-auto h-12 w-auto"
+          src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+          alt="Workflow"
+        />
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{title}</h2>
       </div>
+      {children}
     </div>
   </div>
 )

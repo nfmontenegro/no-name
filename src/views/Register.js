@@ -4,9 +4,9 @@ import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import * as Yup from 'yup'
 
-import FormComponent from '../../components/Form/Form'
-import Card from '../../components/Core/Card'
-import {userRegisterAction} from '../slices/user-slice'
+import FormComponent from '../components/Form/Form'
+import HeaderForm from '../components/Form/HeaderForm'
+import {userRegisterAction} from '../store/user.slice'
 import {StatusCodes} from 'http-status-codes'
 
 const UserRegister = () => {
@@ -125,7 +125,7 @@ const UserRegister = () => {
   ]
 
   return (
-    <Card title="Register your account">
+    <HeaderForm title="Register your account">
       <FormComponent
         formTemplate={formTemplate}
         isSubmitting={isSubmitting}
@@ -145,7 +145,7 @@ const UserRegister = () => {
           </div>
         </div>
       </div>
-    </Card>
+    </HeaderForm>
   )
 }
 

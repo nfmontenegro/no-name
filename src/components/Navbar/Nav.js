@@ -1,8 +1,8 @@
 import {useHistory} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 
-import {userLogout} from '../../features/slices/user-slice'
-import {toggleMenu} from '../../features/slices/menu-slice'
+import {userLogout} from '../../store/user.slice'
+import {toggleMenu} from '../../store/menu.slice'
 
 const Nav = ({children}) => {
   const {users} = useSelector(state => state.userReducer)

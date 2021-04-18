@@ -5,9 +5,9 @@ import {useHistory} from 'react-router-dom'
 import {StatusCodes} from 'http-status-codes'
 import * as Yup from 'yup'
 
-import {userLogin} from '../slices/user-slice'
-import FormComponent from '../../components/Form/Form'
-import Card from '../../components/Core/Card'
+import {userLogin} from '../store/user.slice'
+import FormComponent from '../components/Form/Form'
+import HeaderForm from '../components/Form/HeaderForm'
 
 const UserLogin = () => {
   const [message, setMessage] = useState(null)
@@ -58,7 +58,7 @@ const UserLogin = () => {
   ]
 
   return (
-    <Card title="Sign in to your account">
+    <HeaderForm title="Sing in to your account">
       <FormComponent
         formTemplate={formTemplate}
         isSubmitting={isSubmitting}
@@ -86,7 +86,7 @@ const UserLogin = () => {
           </div>
         </div>
       </div>
-    </Card>
+    </HeaderForm>
   )
 }
 

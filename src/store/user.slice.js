@@ -1,12 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 
-import {apiClient} from '../../api/user'
+import {apiClient} from '../api/user'
 
 export const userLogin = createAsyncThunk('@@USER/LOGIN', async formData => {
   const options = {
     endpoint: 'signin',
     method: 'POST',
-    data: formData,
+    data: formData
   }
   return apiClient(options)
 })
@@ -14,7 +14,7 @@ export const userLogin = createAsyncThunk('@@USER/LOGIN', async formData => {
 export const userProfile = createAsyncThunk('@@USER/PROFILE', async () => {
   const options = {
     endpoint: 'users/me',
-    method: 'GET',
+    method: 'GET'
   }
   return apiClient(options)
 })
@@ -23,7 +23,7 @@ export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async form
   const options = {
     endpoint: 'signup',
     method: 'POST',
-    data: formData,
+    data: formData
   }
   return apiClient(options)
 })
@@ -33,7 +33,7 @@ export const updateUser = createAsyncThunk('@@USER/UPDATE', async formData => {
   const options = {
     endpoint: `users/${userId}`,
     method: 'PUT',
-    data: rest,
+    data: rest
   }
 
   return apiClient(options)
@@ -43,8 +43,8 @@ const initialState = {
   users: {
     loading: false,
     data: null,
-    error: null,
-  },
+    error: null
+  }
 }
 
 const hasPrefix = (action, prefix) => action.type.startsWith(prefix)
@@ -65,7 +65,7 @@ const fulfilledPayloadReducer = (state, action) => {
   state.users = {
     loading: false,
     data: action.payload.data,
-    error: null,
+    error: null
   }
 }
 
@@ -75,7 +75,7 @@ const userSlice = createSlice({
   reducers: {
     userLogout: state => {
       state.users = initialState.users
-    },
+    }
   },
   extraReducers: builder => {
     builder
@@ -87,17 +87,17 @@ const userSlice = createSlice({
         state.users = {
           loading: true,
           data: null,
-          error: null,
+          error: null
         }
       })
       .addMatcher(isRejectedAction('@@USER/'), (state, action) => {
         state.users = {
           loading: false,
           data: null,
-          error: action.payload.data,
+          error: action.payload.data
         }
       })
-  },
+  }
 })
 
 export const {userLogout, fetchRequest} = userSlice.actions

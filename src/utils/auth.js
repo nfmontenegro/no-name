@@ -3,8 +3,8 @@ import {useEffect, useState} from 'react'
 import {StatusCodes} from 'http-status-codes'
 import {Redirect} from 'react-router-dom'
 
-import {userProfile} from '../features/slices/user-slice'
-import {toggleMenu} from '../features/slices/menu-slice'
+import {userProfile} from '../store/user.slice'
+import {toggleMenu} from '../store/menu.slice'
 
 const ProtectedRoute = props => {
   const {component: Component} = props

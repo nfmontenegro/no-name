@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 
-import {apiClient} from '../../api/user'
+import {apiClient} from '../api/user'
 
 export const userLogin = createAsyncThunk('@@USER/LOGIN', async formData => {
   const options = {
@@ -70,7 +70,7 @@ const fulfilledPayloadReducer = (state, action) => {
 }
 
 const userSlice = createSlice({
-  name: 'users',
+  name: '@@USER',
   initialState,
   reducers: {
     userLogout: state => {

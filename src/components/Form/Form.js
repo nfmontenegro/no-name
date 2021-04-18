@@ -1,8 +1,9 @@
-import Input from '../../components/Form/Input'
+import Input from './Input'
 import Button from './Button'
 import Select from './Select'
 
 import './Form.css'
+import ButtonsActions from './ActionsButtons'
 
 const FormComponent = ({
   handleSubmit,
@@ -11,43 +12,64 @@ const FormComponent = ({
   message,
   loading,
   errors,
-  isValid
+  isValid,
+  titleSection,
+  actionsButton
 }) => {
-  const renderFormControl = (fields, errors) =>
-    fields.map(field => {
+  function renderFormControl(fields, errors) {
+    return fields.map(field => {
       const inputType = ['text', 'email', 'password']
       const fieldName = field.name
       return (
-        <>
-          {field.type === 'select' && (
-            <Select
-              fieldName={fieldName}
-              fieldValues={field.values}
-              onChange={field.onChange}
-            />
-          )}
-          {inputType.includes(field.type) && (
-            <Input
-              key={fieldName}
-              name={fieldName}
-              type={field.type}
-              label={field.label}
-              onChange={field.onChange}
-              value={field.value}
-              placeholder={field.placeHolder}
-            />
-          )}
+        <div className="mt-6 flex flex-col lg:flex-row" key={fieldName}>
+          <div className="flex-grow space-y-6">
+            {field.type === 'select' ? (
+              <Select
+                fieldName={fieldName}
+                fieldValues={field.values}
+                onChange={field.onChange}
+              />
+            ) : null}
 
-          {errors[fieldName] ? <div>{errors[fieldName]}</div> : null}
-        </>
+            {inputType.includes(field.type) ? (
+              <Input
+                name={fieldName}
+                type={field.type}
+                onChange={field.onChange}
+                value={field.value}
+                placeholder={field.placeHolder}
+              />
+            ) : null}
+
+            {errors[fieldName] ? <div key={fieldName}>{errors[fieldName]}</div> : null}
+          </div>
+        </div>
       )
     })
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="divide-y divide-gray-200 lg:col-span-9 px-6">
+      <div className="py-6 px-4 sm:p-6 lg:pb-8">
+        {titleSection ? (
+          <div>
+            <h2 className="text-lg leading-6 font-medium text-gray-900">Profile</h2>
+            <p className="mt-1 text-sm text-gray-500">
+              This information will be displayed publicly so be careful what you share.
+            </p>
+          </div>
+        ) : null}
+      </div>
+
       {message && <div>{message}</div>}
+
       {renderFormControl(formTemplate, errors)}
-      <Button loading={loading} textButton={textButton} isValid={isValid} />
+
+      {actionsButton ? (
+        <ButtonsActions />
+      ) : (
+        <Button loading={loading} textButton={textButton} isValid={isValid} />
+      )}
     </form>
   )
 }

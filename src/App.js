@@ -1,10 +1,10 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 
-const UserLogin = React.lazy(() => import('./features/user/Login'))
-const UserRegister = React.lazy(() => import('./features/user/Register'))
-const Profile = React.lazy(() => import('./features/user/Profile'))
-const EditProfile = React.lazy(() => import('./features/user/EditProfile'))
+const UserLogin = React.lazy(() => import('./views/Login'))
+const UserRegister = React.lazy(() => import('./views/Register'))
+const Profile = React.lazy(() => import('./views/Profile'))
+const EditProfile = React.lazy(() => import('./views/EditProfile'))
 
 const Nav = React.lazy(() => import('./components/Navbar/Nav'))
 const Home = React.lazy(() => import('./Home'))

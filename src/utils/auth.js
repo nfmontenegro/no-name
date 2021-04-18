@@ -1,4 +1,4 @@
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {useEffect, useState} from 'react'
 import {StatusCodes} from 'http-status-codes'
 import {Redirect} from 'react-router-dom'

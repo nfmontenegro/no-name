@@ -1,6 +1,7 @@
 import Input from './Input'
 import Button from './Button'
 import Select from './Select'
+import TextArea from './TextArea'
 
 import './Form.css'
 import ButtonsActions from './ActionsButtons'
@@ -31,6 +32,16 @@ const FormComponent = ({
               />
             ) : null}
 
+            {field.type === 'textarea' ? (
+              <TextArea
+                name={fieldName}
+                type={field.type}
+                onChange={field.onChange}
+                value={field.value}
+                placeholder={field.placeholder}
+              />
+            ) : null}
+
             {inputType.includes(field.type) ? (
               <Input
                 name={fieldName}
@@ -41,7 +52,11 @@ const FormComponent = ({
               />
             ) : null}
 
-            {errors[fieldName] ? <div key={fieldName}>{errors[fieldName]}</div> : null}
+            {errors[fieldName] ? (
+              <p className="mt-2 text-sm text-gray-500" id="email-description">
+                {errors[fieldName]}
+              </p>
+            ) : null}
           </div>
         </div>
       )
@@ -61,12 +76,12 @@ const FormComponent = ({
         ) : null}
       </div>
 
-      {message && <div>{message}</div>}
+      {message ? <div>{message}</div> : null}
 
       {renderFormControl(formTemplate, errors)}
 
       {actionsButton ? (
-        <ButtonsActions />
+        <ButtonsActions loading={loading} textButton={textButton} isValid={isValid} />
       ) : (
         <Button loading={loading} textButton={textButton} isValid={isValid} />
       )}

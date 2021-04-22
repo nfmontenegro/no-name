@@ -85,13 +85,7 @@ const Profile = () => {
                       </div>
                       <div className="sm:col-span-2">
                         <dt className="text-sm font-medium text-gray-500">About</dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim
-                          incididunt cillum culpa consequat. Excepteur qui ipsum aliquip
-                          consequat sint. Sit id mollit nulla mollit nostrud in ea officia
-                          proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit
-                          deserunt qui eu.
-                        </dd>
+                        <dd className="mt-1 text-sm text-gray-900">{data.bio}</dd>
                       </div>
                     </dl>
                   </div>

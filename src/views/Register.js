@@ -52,7 +52,6 @@ const UserRegister = () => {
     },
     validationSchema: SignupSchema,
     onSubmit: async values => {
-      console.log('>> Values: ', values)
       const {payload} = await dispatch(userRegisterAction(values))
 
       if (payload.statusCode && payload.statusCode !== StatusCodes.CREATED) {

@@ -1,5 +1,5 @@
 const HeaderForm = ({title, children}) => (
-  <div className="min-h-screen flex items-center justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+  <div className="mt-28 flex items-center justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
     <div className="max-w-md w-full space-y-2">
       <div>
         <img

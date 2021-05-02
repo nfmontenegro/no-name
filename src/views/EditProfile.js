@@ -34,7 +34,7 @@ const EditProfile = () => {
       .max(20, 'Too long!'),
     lastname: Yup.string()
       .min(5, 'Too short!')
-      .max(10, 'Too long!'),
+      .max(30, 'Too long!'),
     phone: Yup.string()
       .min(5, 'Too short!')
       .max(10, 'Too long!'),

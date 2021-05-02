@@ -2,8 +2,8 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
   menu: {
-    isOpen: false,
-  },
+    isOpen: false
+  }
 }
 
 const menuSlice = createSlice({
@@ -12,10 +12,10 @@ const menuSlice = createSlice({
   reducers: {
     toggleMenu: (state, action) => {
       state.menu = {
-        isOpen: action.payload,
+        isOpen: action.payload
       }
-    },
-  },
+    }
+  }
 })
 
 export const {toggleMenu} = menuSlice.actions

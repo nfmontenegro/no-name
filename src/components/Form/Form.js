@@ -2,9 +2,10 @@ import Input from './Input'
 import Button from './Button'
 import Select from './Select'
 import TextArea from './TextArea'
+import Alert from './Alert'
+import ButtonsActions from './ActionsButtons'
 
 import './Form.css'
-import ButtonsActions from './ActionsButtons'
 
 const FormComponent = ({
   handleSubmit,
@@ -76,7 +77,7 @@ const FormComponent = ({
         ) : null}
       </div>
 
-      {message ? <div>{message}</div> : null}
+      {message ? <Alert textAlert={message} iconInformation="warning" /> : null}
 
       {renderFormControl(formTemplate, errors)}
 

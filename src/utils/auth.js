@@ -24,7 +24,7 @@ const ProtectedRoute = props => {
     dispatch(toggleMenu(false))
   })
 
-  return user.statusCode === StatusCodes.UNAUTHORIZED ? (
+  return user?.data?.status === StatusCodes.UNAUTHORIZED ? (
     <Redirect to="/login" />
   ) : (
     <Component />

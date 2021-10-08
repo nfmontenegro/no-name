@@ -9,6 +9,7 @@ import './Form.css'
 
 const FormComponent = ({
   handleSubmit,
+  handleChangeFile,
   formTemplate,
   textButton,
   message,
@@ -41,6 +42,10 @@ const FormComponent = ({
                 value={field.value}
                 placeholder={field.placeholder}
               />
+            ) : null}
+
+            {field.type === 'file' ? (
+              <input name={fieldName} type="file" onChange={handleChangeFile} />
             ) : null}
 
             {inputType.includes(field.type) ? (

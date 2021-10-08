@@ -16,7 +16,9 @@ export const userProfile = createAsyncThunk('@@USER/PROFILE', async () => {
     endpoint: 'users/me',
     method: 'GET'
   }
-  return apiClient(options)
+  const response = await apiClient(options)
+  //we need to send specific object with data field to receive in the store
+  return {data: response}
 })
 
 export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async formData => {
@@ -28,12 +30,14 @@ export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async form
   return apiClient(options)
 })
 
-export const updateUser = createAsyncThunk('@@USER/UPDATE', async formData => {
-  const {userId, ...rest} = formData
+export const updateUser = createAsyncThunk('@@USER/UPDATE', async (userId, formData) => {
   const options = {
     endpoint: `users/${userId}`,
     method: 'PUT',
-    data: rest
+    data: formData,
+    headers: {
+      'Content-Type': 'application/json'
+    }
   }
 
   return apiClient(options)

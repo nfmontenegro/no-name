@@ -18,9 +18,7 @@ API.interceptors.response.use(
   response => response,
   error => {
     localStorage.removeItem('token')
-    return {
-      data: error.response.data.error
-    }
+    return error.response
   }
 )
 

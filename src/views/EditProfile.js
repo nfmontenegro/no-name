@@ -18,6 +18,7 @@ import {StatusCodes} from 'http-status-codes'
 
 const EditProfile = () => {
   const [message, setMessage] = useState(null)
+  const [file, setFile] = useState(null)
   const dispatch = useDispatch()
   const history = useHistory()
   const {
@@ -28,30 +29,32 @@ const EditProfile = () => {
     return classes.filter(Boolean).join(' ')
   }
 
+  function handleChangeFile(event) {
+    setFile(event.target.files[0])
+  }
+
   const EditProfileSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(3, 'Too short!')
-      .max(20, 'Too long!'),
-    lastname: Yup.string()
-      .min(5, 'Too short!')
-      .max(30, 'Too long!'),
-    phone: Yup.string()
-      .min(5, 'Too short!')
-      .max(10, 'Too long!'),
+    name: Yup.string().min(3, 'Too short!').max(20, 'Too long!'),
+    lastname: Yup.string().min(5, 'Too short!').max(30, 'Too long!'),
+    phone: Yup.string().min(5, 'Too short!').max(10, 'Too long!'),
     bio: Yup.string().min(5, 'Too short!')
   })
 
-  const {name, lastname, phone, bio} = data || {}
+  const {name, lastname, phone, bio, avatar} = data || {}
   const formik = useFormik({
     initialValues: {
       name,
       lastname,
       phone,
-      bio
+      bio,
+      avatar
     },
     validationSchema: EditProfileSchema,
     onSubmit: async values => {
-      const {payload} = await dispatch(updateUser({...values, userId: data.id}))
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('data', {...values, userId: data.id})
+      const {payload} = await dispatch(updateUser(data.id, formData))
       if (payload.StatusCodes && payload.statusCodes !== StatusCodes.OK) {
         setMessage(payload.details)
       } else {
@@ -90,6 +93,11 @@ const EditProfile = () => {
       value: values.bio,
       placeHolder: 'Bio',
       onChange: handleChange
+    },
+    {
+      name: 'avatar',
+      type: 'file',
+      value: values.avatar
     }
   ]
 
@@ -149,6 +157,7 @@ const EditProfile = () => {
               formTemplate={formTemplate}
               isSubmitting={isSubmitting}
               handleSubmit={handleSubmit}
+              handleChangeFile={handleChangeFile}
               textButton="Save changes"
               message={message}
               errors={errors}

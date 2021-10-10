@@ -58,7 +58,7 @@ const UserLogin = () => {
   ]
 
   return (
-    <HeaderForm title="Sing in to your account">
+    <HeaderForm title="Sign into your account">
       <FormComponent
         formTemplate={formTemplate}
         isSubmitting={isSubmitting}

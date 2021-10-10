@@ -8,7 +8,8 @@ export const userLogin = createAsyncThunk('@@USER/LOGIN', async formData => {
     method: 'POST',
     data: formData
   }
-  return apiClient(options)
+  const response = await apiClient(options)
+  return {data: response}
 })
 
 export const userProfile = createAsyncThunk('@@USER/PROFILE', async () => {
@@ -27,20 +28,20 @@ export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async form
     method: 'POST',
     data: formData
   }
-  return apiClient(options)
+
+  const response = await apiClient(options)
+  return {data: response}
 })
 
-export const updateUser = createAsyncThunk('@@USER/UPDATE', async (userId, formData) => {
+export const updateUser = createAsyncThunk('@@USER/UPDATE', async ({userId, formValues}) => {
   const options = {
     endpoint: `users/${userId}`,
-    method: 'PUT',
-    data: formData,
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    method: 'POST',
+    data: formValues
   }
 
-  return apiClient(options)
+  const response = await apiClient(options)
+  return {data: response}
 })
 
 const initialState = {
@@ -56,7 +57,7 @@ const isPending = action => action.type.endsWith('/pending')
 const isRejected = action => action.type.endsWith('/rejected')
 
 const isPendingAction = prefix => action => {
-  // Note: this cast to AnyAction could also be `any` or whatever fits your case best
+  // note: this cast to anyaction could also be `any` or whatever fits your case best
   return hasPrefix(action, prefix) && isPending(action)
 }
 

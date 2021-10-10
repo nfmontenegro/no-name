@@ -34,9 +34,15 @@ const EditProfile = () => {
   }
 
   const EditProfileSchema = Yup.object().shape({
-    name: Yup.string().min(3, 'Too short!').max(20, 'Too long!'),
-    lastname: Yup.string().min(5, 'Too short!').max(30, 'Too long!'),
-    phone: Yup.string().min(5, 'Too short!').max(10, 'Too long!'),
+    name: Yup.string()
+      .min(3, 'Too short!')
+      .max(20, 'Too long!'),
+    lastname: Yup.string()
+      .min(5, 'Too short!')
+      .max(30, 'Too long!'),
+    phone: Yup.string()
+      .min(5, 'Too short!')
+      .max(10, 'Too long!'),
     bio: Yup.string().min(5, 'Too short!')
   })
 
@@ -51,10 +57,11 @@ const EditProfile = () => {
     },
     validationSchema: EditProfileSchema,
     onSubmit: async values => {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('data', {...values, userId: data.id})
-      const {payload} = await dispatch(updateUser(data.id, formData))
+      const fData = new FormData()
+      fData.append('values', JSON.stringify(values))
+      fData.append('file', file)
+
+      const {payload} = await dispatch(updateUser({userId: data.id, formValues: fData}))
       if (payload.StatusCodes && payload.statusCodes !== StatusCodes.OK) {
         setMessage(payload.details)
       } else {

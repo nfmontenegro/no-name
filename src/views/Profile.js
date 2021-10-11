@@ -5,22 +5,20 @@ import {useHistory} from 'react-router-dom'
 const Profile = () => {
   const history = useHistory()
   const {
-    users: {data, loading}
+    user: {data, loading}
   } = useSelector(state => state.userReducer)
 
   return (
     <Fragment>
-      {loading ? null : (
+      {loading ? (
+        'Loading ...'
+      ) : (
         <main className="py-10">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
             <div className="flex items-center space-x-5">
               <div className="flex-shrink-0">
                 <div className="relative">
-                  <img
-                    className="h-16 w-16 rounded-full"
-                    src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-                    alt=""
-                  />
+                  <img className="h-16 w-16 rounded-full" src={data.avatarUrl} alt="" />
                   <span
                     className="absolute inset-0 shadow-inner rounded-full"
                     aria-hidden="true"

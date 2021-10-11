@@ -5,7 +5,7 @@ import {userLogout} from '../../store/user.slice'
 import {toggleMenu} from '../../store/menu.slice'
 
 const Nav = ({children}) => {
-  const {users} = useSelector(state => state.userReducer)
+  const {user} = useSelector(state => state.userReducer)
   const {menu} = useSelector(state => state.menuReducer)
   const history = useHistory()
   const dispatch = useDispatch()
@@ -35,7 +35,7 @@ const Nav = ({children}) => {
                     onClick={() => history.push('/')}
                   />
                 </div>
-                {users.data && users.data.role ? (
+                {user.data && user.data.role ? (
                   <div className="hidden lg:block lg:ml-6 lg:space-x-4">
                     <div className="flex">
                       <div className="bg-black bg-opacity-25 rounded-md py-2 px-3 text-sm font-medium text-white">
@@ -99,7 +99,7 @@ const Nav = ({children}) => {
               </div>
               <div className="hidden lg:block lg:ml-4">
                 <div className="flex items-center">
-                  {users.data && users.data.role ? (
+                  {user.data && user.data.role ? (
                     <div className="hidden lg:block lg:ml-6 lg:space-x-4">
                       <div className="flex">
                         <button className="flex-shrink-0 rounded-full p-1 text-light-blue-200 hover:bg-light-blue-800 hover:text-white focus:outline-none focus:bg-light-blue-900 focus:ring-2 focus:ring-offset-2 focus:ring-offset-light-blue-900 focus:ring-white">
@@ -129,7 +129,7 @@ const Nav = ({children}) => {
                             >
                               <img
                                 className="rounded-full h-8 w-8"
-                                src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixqx=jHevZcgc70&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80"
+                                src={user.data.avatarUrl}
                                 alt=""
                               />
                             </div>
@@ -150,7 +150,7 @@ const Nav = ({children}) => {
                                   className="text-sm font-medium text-gray-900 truncate"
                                   role="none"
                                 >
-                                  {users.data.email}
+                                  {user.data.email}
                                 </p>
                               </div>
                               <div className="py-1" role="none">

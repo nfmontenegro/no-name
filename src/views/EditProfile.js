@@ -22,7 +22,7 @@ const EditProfile = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const {
-    users: {data}
+    user: {data}
   } = useSelector(state => state.userReducer)
 
   function classNames(...classes) {

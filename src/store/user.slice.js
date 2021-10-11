@@ -9,7 +9,9 @@ export const userLogin = createAsyncThunk('@@USER/LOGIN', async formData => {
     data: formData
   }
   const response = await apiClient(options)
-  return {data: response}
+  return {
+    data: response
+  }
 })
 
 export const userProfile = createAsyncThunk('@@USER/PROFILE', async () => {
@@ -18,8 +20,9 @@ export const userProfile = createAsyncThunk('@@USER/PROFILE', async () => {
     method: 'GET'
   }
   const response = await apiClient(options)
-  //we need to send specific object with data field to receive in the store
-  return {data: response}
+  return {
+    data: response
+  }
 })
 
 export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async formData => {
@@ -30,7 +33,9 @@ export const userRegisterAction = createAsyncThunk('@@USER/REGISTER', async form
   }
 
   const response = await apiClient(options)
-  return {data: response}
+  return {
+    data: response
+  }
 })
 
 export const updateUser = createAsyncThunk('@@USER/UPDATE', async ({userId, formValues}) => {
@@ -41,11 +46,13 @@ export const updateUser = createAsyncThunk('@@USER/UPDATE', async ({userId, form
   }
 
   const response = await apiClient(options)
-  return {data: response}
+  return {
+    data: response
+  }
 })
 
 const initialState = {
-  users: {
+  user: {
     loading: false,
     data: null,
     error: null
@@ -56,18 +63,11 @@ const hasPrefix = (action, prefix) => action.type.startsWith(prefix)
 const isPending = action => action.type.endsWith('/pending')
 const isRejected = action => action.type.endsWith('/rejected')
 
-const isPendingAction = prefix => action => {
-  // note: this cast to anyaction could also be `any` or whatever fits your case best
-  return hasPrefix(action, prefix) && isPending(action)
-}
-
-const isRejectedAction = prefix => action => {
-  // Note: this cast to AnyAction could also be `any` or whatever fits your case best - like if you had standardized errors and used `rejectWithValue`
-  return hasPrefix(action, prefix) && isRejected(action)
-}
+const isPendingAction = prefix => action => hasPrefix(action, prefix) && isPending(action)
+const isRejectedAction = prefix => action => hasPrefix(action, prefix) && isRejected(action)
 
 const fulfilledPayloadReducer = (state, action) => {
-  state.users = {
+  state.user = {
     loading: false,
     data: action.payload.data,
     error: null
@@ -79,7 +79,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     userLogout: state => {
-      state.users = initialState.users
+      state.user = initialState.user
     }
   },
   extraReducers: builder => {
@@ -89,18 +89,11 @@ const userSlice = createSlice({
       .addCase(userRegisterAction.fulfilled, fulfilledPayloadReducer)
       .addCase(updateUser.fulfilled, fulfilledPayloadReducer)
       .addMatcher(isPendingAction('@@USER/'), state => {
-        state.users = {
-          loading: true,
-          data: null,
-          error: null
-        }
+        state.user.loading = true
       })
       .addMatcher(isRejectedAction('@@USER/'), (state, action) => {
-        state.users = {
-          loading: false,
-          data: null,
-          error: action.payload.data
-        }
+        state.user.data = null
+        state.user.error = action.payload.data
       })
   }
 })
